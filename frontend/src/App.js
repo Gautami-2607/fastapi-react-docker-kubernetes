@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {environment} from './env.js';
 
 function App() {
   const [text, setText] = useState('');
   const [convertedText, setConvertedText] = useState('');
+  const env = environment;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ function App() {
       const formData = new FormData();
       formData.append('text', text);
 
-      const response = await fetch('https://8000-gautami2607-fastapireac-3zs9qk83ufu.ws-us107.gitpod.io/convert', {
+      const response = await fetch(env.fastAPIUrl+'convert', {
         method: 'POST',
         body: formData,
       });
