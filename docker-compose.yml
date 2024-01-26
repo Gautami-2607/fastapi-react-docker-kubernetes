@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000  
+    container_name: backend
+    # depends_on: 
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000 
+  
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend                       # Replace with the path to your React app's Dockerfile
+    command: npm start 
+    # command: serve -s build -l https://0.0.0.0:443
+    ports:
+      - "3000:3000"                             # Map your React app's port 3000 to host port 3000
+    expose:
+      - 3000
+    depends_on:
+      - backend                                 # Ensure the React app container starts after MySQL
+ 
